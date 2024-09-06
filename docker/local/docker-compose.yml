@@ -1,0 +1,45 @@
+version: "3"
+services:
+  php:
+    build:
+       context: ../..
+       dockerfile: docker/local/php/Dockerfile
+    container_name: test-app
+    hostname: test-app
+    restart: unless-stopped
+    ports:
+      - '8080:8080'
+    environment:
+      PORT: 8080
+    volumes:
+      - ../../:/var/www
+    networks:
+      - test
+
+  redis:
+    image: redis:latest
+    container_name: test-redis
+    hostname: test-redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    networks:
+      - test
+
+  db:
+    image: postgres:latest
+    container_name: test-db
+    hostname: test-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: 'root'
+      POSTGRES_USER: 'root'
+      POSTGRES_DB: 'test_db'
+    ports:
+      - '5432:5432'
+    networks:
+      - test
+
+networks:
+  test:
+    driver: bridge
