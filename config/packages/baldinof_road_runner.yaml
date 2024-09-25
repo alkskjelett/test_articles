@@ -3,12 +3,14 @@ baldinof_road_runner:
     # See https://github.com/baldinof/roadrunner-bundle#kernel-reboots
     kernel_reboot:
         # if you want to use a fresh container on each request, use the `always` strategy
-        strategy: on_exception
+        strategy: max_jobs
+        max_jobs: 1
+        max_jobs_dispersion: 1
         # Exceptions you KNOW that do not put your app in an unrecoverable state
-        allowed_exceptions:
-            - Symfony\Component\HttpKernel\Exception\HttpExceptionInterface
-            - Symfony\Component\Serializer\Exception\ExceptionInterface
-            - Symfony\Contracts\HttpClient\Exception\ExceptionInterface
+#        allowed_exceptions:
+#            - Symfony\Component\HttpKernel\Exception\HttpExceptionInterface
+#            - Symfony\Component\Serializer\Exception\ExceptionInterface
+#            - Symfony\Contracts\HttpClient\Exception\ExceptionInterface
 
     # Allow to send prometheus metrics to the main RoadRunner process,
     # via a `Spiral\RoadRunner\MetricsInterface` service.

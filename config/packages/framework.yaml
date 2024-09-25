@@ -2,9 +2,4 @@
 framework:
     secret: '%env(APP_SECRET)%'
     csrf_protection: false
-
-    # Note that the session will be started ONLY if you read or write from it.
     session: true
-
-    #esi: true
-    #fragments: true
